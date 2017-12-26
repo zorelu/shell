@@ -8,7 +8,7 @@
 ###接口地址
 url=https://oapi.dingtalk.com/robot/send?access_token=fcd913f131c04eafd280a599c0061f13194be7062d3336b4e9aa396746ec0247
 u=$USER
-b=$(date '+%Y-%m-%d %H:%M:%S')
+b=$(date '+%Y-%m-%d,%H:%M:%S')
 h=`hostname`
 hip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 userip=`who am i | awk '{print $6}' | sed 's/(//g' | sed 's/)//g'`
