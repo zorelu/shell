@@ -1,0 +1,19 @@
+#!/bin/bash
+###接口地址
+url=https://oapi.dingtalk.com/robot/send?access_token=fcd913f131c04eafd280a599c0061f13194be7062d3336b4e9aa396746ec0247
+u=$USER
+b=$(date '+%Y-%m-%d,%H:%M:%S')
+h=`hostname`
+hip=`lastlog -u root | awk '{print $3}'|sed -n '2p'`
+#pall='39.108.3.251'
+getip=`curl -s "http://api.ip138.com/query/?ip=$hip&datatype=jsonp&callback=find" -H "token:eb0bbb3c3f990b4970d5a1e258762c94"`
+#a=`echo $a1`
+isip=`echo ${getip#*[}`
+trueip=`echo ${isip%]*} | sed 's/\"//g'  `
+#echo $trueip
+#userip=`who am i | awk '{print $6}' | sed 's/(//g' | sed 's/)//g'`
+a=$(echo "当前主机为:$h,当前登录用户:$u,当前时间登陆时间:$b,当前登录的用ip:$hip,$trueip")
+#echo $a
+c=`curl  -s -H "Content-type: application/json" -X POST -d '{"msgtype":"text","text":{"content":"'$a'"},"at":{"atMobiles":["189xxxx8325","189xxxx8325"]}}' $url`
+#echo $c
+echo $c,$b >> /var/log/login.log  >/dev/null
